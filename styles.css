@@ -1,0 +1,38 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    height: 100dvh;
+    background-color: rgb(182, 198, 198);
+}
+
+.navbar {
+    height: 10dvh;
+    background-color: azure;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: larger;
+    font-weight: bolder;
+    padding: 2rem;
+}
+
+.mainbody {
+    height: 90dvh;
+}
+
+.actionbutton {
+    padding: 10px 20px;
+    background-color: aqua;
+    border-radius: 100vh;
+    font-size: 1.5rem;
+    outline: none;
+    cursor: pointer;
+}
+
+.actionbutton:hover {
+    background-color: rgb(158, 237, 237);
+}
