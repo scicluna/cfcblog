@@ -35,8 +35,32 @@
         </cfif>
     </nav>
     <main class="mainbody">
-        <!--- Loop over posts here --->
-        <!--- Or display "no posts yet..." --->
+        <cfif blogPosts.recordCount gt 0>
+            <cfoutput>
+                <cfloop query="blogPosts">
+                    <div class="flex flex-col">
+                        <h1>#blogPosts.title#</h1>
+                        <div class="flex justify-between">
+                            <div class="flex gap-4">
+                                <h4>#blogPosts.date#</h4>
+                                <h4>#blogPosts.category#</h4>
+                            </div>
+                            <div class="flex gap-4">
+                                <form action="./views/editpost.cfm" method="GET">
+                                    <input name="id" type="hidden" value="#blogPosts.id#"/>
+                                    <button type="submit">Edit</button>
+                                </form>
+                                <form action="./views/deletepost.cfm" method="POST">
+                                    <input name="id" type="hidden" value="#blogPosts.id#"/>
+                                    <button type="submit">Delete</button>
+                                </form>
+                            </div>
+                        </div>
+                </cfloop>
+            </cfoutput>
+            <cfelse>
+            <p>No blog posts yet...</p>    
+        </cfif>
     </main>
 </body>
 </html>
