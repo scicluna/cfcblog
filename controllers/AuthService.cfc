@@ -1,7 +1,29 @@
 component {
 
-    function login(string username, string password){
-
+    function login(user){
+        try{
+        fetchedUser = queryExecute(
+            "
+            SELECT
+                *
+            FROM
+                users
+            WHERE (
+                username = :username
+            AND
+                password = :password)
+            ",
+            {
+                username: user.getUserName(),
+                password: user.getPassword()
+            },
+            {datasource: "cfblog"})
+            
+            session.userId = fetchedUser.id
+            return true;
+        } catch (Any e){
+            return false;
+        }
     } 
 
     function logout(){
@@ -27,7 +49,7 @@ component {
             return false;
         } else {
             try {
-             queryExecute(
+                newUser = queryExecute(
                 "
                 INSERT INTO
                 users (username, password)
@@ -38,8 +60,15 @@ component {
                     username: user.getUserName(),
                     password: user.getPassword()
                 },
-                {datasource: "cfblog"}
-             )
+                {datasource: "cfblog"})
+
+                newUserIdQuery = queryExecute(
+                    "SELECT LAST_INSERT_ID() AS newId",
+                    {},
+                    {datasource: "cfblog"}
+                );
+             
+             session.userId = newUserIdQuery.newId
              return true;
             } catch (Any e){
                 return false;

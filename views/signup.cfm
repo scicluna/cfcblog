@@ -5,16 +5,15 @@
     if (structKeyExists(form, "username") AND structKeyExists(form, "password")){
 
         user = new cfcblog.models.User(form.username, form.password)
-        success = authService.register(user)
+        userId = authService.register(user)
 
-        if (!success){
+        if (!userId){
             message = "Registration failed"
         } else {
             message = "Registration successful!"
             location('/cfcblog/index.cfm', false)
         }
     }
-
 </cfscript>
 
 <html lang="en">

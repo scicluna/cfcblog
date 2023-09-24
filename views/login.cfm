@@ -1,3 +1,22 @@
+<cfscript>
+    authService = new cfcblog.controllers.AuthService()
+    message = ""
+
+    if (structKeyExists(form, "username") AND structKeyExists(form, "password")){
+
+        user = new cfcblog.models.User(form.username, form.password)
+        success = authService.login(user)
+
+        if (!success){
+            message = "Login failed"
+        } else {
+            message = "Login successful!";
+            location('/cfcblog/index.cfm', false)
+        }
+    }
+    
+</cfscript>
+
 <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -6,7 +25,7 @@
         <title>CFC BLOG</title>
     </head>
     <body>
-        <form action="">
+        <form action="login.cfm" method="POST">
             <label>
                 Username
                 <input name="username" type="text" />

@@ -1,5 +1,6 @@
 <cfscript>
-    user = "bob"
+
+    userId = session.userId 
 
     blogPosts = queryExecute(
         "
@@ -15,6 +16,8 @@
     )
 </cfscript>
 
+
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -25,10 +28,10 @@
 <body>
     <nav class="navbar">
         <h1>CFC BLOG</h1>
-        <cfif isDefined("user") OR trim(user) EQ "">
-            <a href="/views/newpost" class="actionbutton">New Post</a>
+        <cfif isDefined("userId")>
+            <a href="/cfcblog/views/newpost.cfm" class="actionbutton">New Post</a>
         <cfelse>
-            <a href="/views/login" class="actionbutton">Login</a>
+            <a href="/cfcblog/views/login.cfm" class="actionbutton">Login</a>
         </cfif>
     </nav>
     <main class="mainbody">

@@ -1,0 +1,1 @@
+<cfapplication name="myApp" applicationtimeout="#CreateTimeSpan(1,0,0,0)#" sessionmanagement="yes" setclientcookies="yes" sessiontimeout="#CreateTimeSpan(0,1,0,0)#">
