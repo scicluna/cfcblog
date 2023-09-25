@@ -44,7 +44,7 @@ component{
         }
     }
 
-    function editPost(string id,  string title, string category,string content){
+    public function editPost(string id,  string title, string category,string content){
         queryExecute(
             "
             UPDATE 
@@ -66,12 +66,12 @@ component{
         )
     }
 
-    function deletePost(string id){
-
-    }
-
-    function redirectUser(){
-        
+    public void function deletePost(string id){
+        queryExecute(
+            "DELETE FROM blog WHERE id = :id",
+            {id: form.id},
+            {datasource: "cfblog"}
+        );
     }
 
 }

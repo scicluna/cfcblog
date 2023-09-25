@@ -39,7 +39,7 @@
                                     <input name="id" type="hidden" value="#blogPosts.id#"/>
                                     <button type="submit">Edit</button>
                                 </form>
-                                <form action="./views/deletepost.cfm" method="POST">
+                                <form action="./controllers/deletepost.cfm" method="POST">
                                     <input name="id" type="hidden" value="#blogPosts.id#"/>
                                     <button type="submit">Delete</button>
                                 </form>

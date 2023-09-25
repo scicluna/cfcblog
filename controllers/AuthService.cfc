@@ -1,6 +1,6 @@
 component {
 
-    function login(user){
+    public boolean function login(user){
         try{
         fetchedUser = queryExecute(
             "
@@ -26,11 +26,11 @@ component {
         }
     } 
 
-    function logout(){
-
+    public void function logout(){
+        structDelete(session, "userId");
     }
 
-    function register(user){
+    public boolean function register(user){
         userExists = queryExecute(
             "
             SELECT
@@ -76,8 +76,8 @@ component {
         }
     }
 
-    function isLoggedIn(){
-
+    public boolean function isLoggedIn(){
+        return structKeyExists(session, "userId");
     }
 
 }
