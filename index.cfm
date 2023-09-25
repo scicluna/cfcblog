@@ -1,19 +1,8 @@
 <cfscript>
-
+    blogService = new cfcblog.controllers.BlogService()
     userId = session.userId 
 
-    blogPosts = queryExecute(
-        "
-        SELECT
-            *
-        FROM
-            blog
-        ORDER BY
-            date DESC;
-        ",
-        {},
-        {datasource: "cfblog"}
-    )
+    blogPosts = blogService.getPosts()
 </cfscript>
 
 

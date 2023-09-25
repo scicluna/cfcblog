@@ -1,36 +1,16 @@
 <cfscript>
+    blogService = new cfcblog.controllers.BlogService()
+
     if (cgi.request_method == "GET"){
         if (structKeyExists(URL, "id")) {
             postId = URL.id;
-            postToEdit = queryExecute(
-                "SELECT * FROM blog WHERE id = :id",
-                {id: postId},
-                {datasource: "cfblog"}
-            );
+            postToEdit = blogService.getPostById(postId)
         }
     } 
     
     if (cgi.request_method == "POST"){
         if (structKeyExists(form, "category") && structKeyExists(form, "title") && structKeyExists(form, "content")  && structKeyExists(session, "userId")){
-            queryExecute(
-                "
-                UPDATE 
-                    blog
-                SET 
-                    category = :category,
-                    title = :title,
-                    content = :content
-                WHERE
-                    id = :id
-                ",
-                {
-                category: form.category,
-                title: form.title,
-                content: form.content,
-                id: form.id
-                },
-                {datasource: "cfblog"}
-            )
+            blogService.editPost(form.id, form.title, form.category, form.content)
             location("/cfcblog/index.cfm", false);
         }
     }

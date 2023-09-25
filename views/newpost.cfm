@@ -1,16 +1,19 @@
 <cfscript>
+    message = ""
+    userId = session.userId 
+
     if (structKeyExists(form, "category") && structKeyExists(form, "title") && structKeyExists(form, "content") && structKeyExists(session, "userId")) {
-        queryExecute(
-            "INSERT INTO blog (userId, category, date, title, content) VALUES (:userId, :category, NOW(), :title, :content)",
-            {
-                userId: session.userId,
-                category: form.category,
-                title: form.title,
-                content: form.content
-            },
-            {datasource: "cfblog"}
-        );
-        location("/cfcblog/index.cfm", false)
+        blogService = new cfcblog.controllers.BlogService()
+        newPost = new cfcblog.models.Post(form.title, form.category, form.content, session.userId);
+
+        createPost = blogService.createPost(newPost);
+
+        if(createPost){
+            location("/cfcblog/index.cfm", false)
+        } else {
+            message = "Post Failed"
+        }
+        
     }
 </cfscript>
 
@@ -38,6 +41,9 @@
             </div>
             <textarea name="content" placeholder="content goes here..." rows="15" class="w-full p-2 rounded-md"></textarea>
             <button class="bg-slate-500 hover:bg-slate-400 transition-all rounded-full p-2 text-2xl" type="submit">Submit</button>
-        </form> 
+        </form>
+        <cfoutput>
+            <p>#message#</p>
+        </cfoutput> 
     </body>
 </html>
